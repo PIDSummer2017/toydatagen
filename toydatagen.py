@@ -1,4 +1,3 @@
-boke
 import matplotlib as mpl
 mpl.use('agg')
 import matplotlib.pyplot as plt
@@ -9,6 +8,7 @@ from matplotlib import path
 import numpy as np
 import random
 from scipy import optimize
+
 
 def image(array):
     #  print array.shape
