@@ -99,7 +99,7 @@ def add_shapes_to(array, locs, npoints = 1):
             y = lineys[i]
             choose_lines(x,y,array, locs)
 
-def randomize_labels(labels):
+def randomize_labels():
     """
     This function returns an array of length 4 where only 1 element
     is set to 1 (randomly chosen) and the rest is set to 0.
@@ -112,8 +112,10 @@ def randomize_labels(labels):
 # don't mess with this
 class image_gen_counter:
     _counter_ = 0
-def make_image_library(num_images=10,debug=0):
+def make_image_library(num_images=10,debug=0,bad_label=False):
+
     locations = []
+    bad_locations = []
     images = []
                     
     for i in range(num_images):
@@ -133,7 +135,10 @@ def make_image_library(num_images=10,debug=0):
 
         image_gen_counter._counter_ +=1
 
-        # for i in locations:
-        #    i = randomize_labels(i)
+    if bad_label:
+        for loc in locations:
+            bad_locations.append(randomize_labels())
         
-    return [images, locations]
+    if bad_label: 
+        return images, bad_locations
+    return images, locations
