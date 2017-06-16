@@ -100,30 +100,40 @@ def add_shapes_to(array, locs, npoints = 1):
             choose_lines(x,y,array, locs)
 
 def randomize_labels(labels):
+    """
+    This function returns an array of length 4 where only 1 element
+    is set to 1 (randomly chosen) and the rest is set to 0.
+    """
     labels = [0,0,0,0]
     z = random.randint(0, 3)
     labels[z] = 1
     return labels
 
-
-
-def make_image_library():
+# don't mess with this
+class image_gen_counter:
+    _counter_ = 0
+def make_image_library(num_images=10,debug=0):
     locations = []
     images = []
                     
-    for i in range(10):
-  
+    for i in range(num_images):
+
+        if debug:
+            print 'Generating image',i
+
         mat = np.zeros([28,28]).astype(np.float32)
         add_shapes_to(mat, locations)
-     
-        #image(mat)
-        #plt.savefig(str(j)+str(i)+'image.png')
 
+        if debug>1:
+            image(mat)
+            plt.savefig('image_%04d.png' % image_gen_counter._counter_)
+        
         mat = np.reshape(mat, (784))
         images.append(mat)
 
+        image_gen_counter._counter_ +=1
+
         # for i in locations:
         #    i = randomize_labels(i)
-                
-        return [images, locations]
-        # if i == 0: break
+        
+    return [images, locations]
