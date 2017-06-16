@@ -1,4 +1,3 @@
-
 import matplotlib as mpl
 mpl.use('agg')
 import matplotlib.pyplot as plt
@@ -10,15 +9,19 @@ import numpy as np
 import random
 from scipy import optimize
 
-
 def image(array):
-        #  print array.shape
-        fig,ax = plt.subplots(figsize=(28,28),facecolor='w')
-        plt.imshow(array,interpolation = 'nearest')
-        # plt.show()
+    #  print array.shape
+    fig,ax = plt.subplots(figsize=(28,28),facecolor='w')
+    plt.imshow(array,interpolation = 'nearest')
+    # plt.show()    
 
 def choose_triangle(x, y,array, tracker):
     z = int(random.uniform(3,4))
+    
+    if (z < 3 or z >=4) and array[x,y] < 10:
+        array[x,y] = 0
+        return
+
     if 3 <= z < 4:
         if 3 <= x <= len(array[0])-3:
             if 4 <= y <= len(array[1]) - 4:
@@ -31,9 +34,6 @@ def choose_triangle(x, y,array, tracker):
                 array[x:x+4, y-4] = 180 + array[x:x+4, y-4]
 
                 tracker.append([1,0,0,0])
-    elif array[x,y] < 10:
-        array[x,y] = 0
-
 
 def choose_rectangle(x, y, array, tracker):
     z = random.uniform(0,1)
@@ -47,8 +47,6 @@ def choose_rectangle(x, y, array, tracker):
                 tracker.append([0,1,0,0])
     elif array[x,y] < 10:
         array[x,y] = 0
-
-#function to create either a horizontal or vertical line
 
 def choose_lines(x, y, array, tracker):
     z = random.uniform(0,2)
@@ -65,12 +63,11 @@ def choose_lines(x, y, array, tracker):
     elif array[x,y] < 10:
         array[x,y] = 0
 
-
 def add_shapes_to(array, locs, npoints = 1):
-#triangle_coords = []
-# rectangle_coords = []
-#horizontal_coords = []
-#vertical_coords = []
+    #triangle_coords = []
+    # rectangle_coords = []
+    #horizontal_coords = []
+    #vertical_coords = []
     for i in range(npoints):
         row=int(random.uniform(5,array.shape[0]-5))
         col=int(random.uniform(5,array.shape[1]-5))
@@ -111,7 +108,6 @@ def randomize_labels(labels):
 
 def make_image_library():
     locations = []
-
     images = []
                     
     for i in range(10):
@@ -119,16 +115,14 @@ def make_image_library():
         mat = np.zeros([28,28]).astype(np.float32)
         add_shapes_to(mat, locations)
      
- #       image(mat)
-#        plt.savefig(str(j)+str(i)+'image.png')
+        #image(mat)
+        #plt.savefig(str(j)+str(i)+'image.png')
 
         mat = np.reshape(mat, (784))
         images.append(mat)
 
-       # for i in locations:
+        # for i in locations:
         #    i = randomize_labels(i)
                 
         return [images, locations]
-       # if i == 0: breakA
-
-
+        # if i == 0: break
