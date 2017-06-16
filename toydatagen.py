@@ -12,11 +12,10 @@ from scipy import optimize
 
 
 def image(array):
-      #  print array.shape
+        #  print array.shape
         fig,ax = plt.subplots(figsize=(28,28),facecolor='w')
         plt.imshow(array,interpolation = 'nearest')
-
-       # plt.show()
+        # plt.show()
 
 def choose_triangle(x, y,array, tracker):
     z = int(random.uniform(3,4))
