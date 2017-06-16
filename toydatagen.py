@@ -9,6 +9,7 @@ import numpy as np
 import random
 from scipy import optimize
 
+
 def image(array):
     #  print array.shape
     fig,ax = plt.subplots(figsize=(28,28),facecolor='w')
