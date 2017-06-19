@@ -2,7 +2,7 @@ from toydata_base import *
 
 class image_gen_counter:
     _counter_ = 0
-def make_classiffication_images(num_images=10,debug=0,bad_label=False):
+def make_classification_images(num_images=100,debug=0,bad_label = False):
     """
     This function makes a set of variable classification images, labeled with shape type  i\
 n an array of length 4. The bad_label functionality randomizes the labels assigned\
@@ -35,4 +35,6 @@ n an array of length 4. The bad_label functionality randomizes the labels assign
 
     if bad_label:
         return images, bad_locations
+    #print locations
     return images, locations
+
