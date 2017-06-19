@@ -80,8 +80,9 @@ for i in range(15000):
         x:batch[0], y_: batch[1], keep_prob: 1.0})
     print("step %d, training accuracy %g"%(i, train_accuracy))
   train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+  batchtest = make_images(1000)
   if i%1000 ==0:
-    test_accuracy = accuracy.eval(feed_dict={x:make_images()[0], y_:make_images()[1], keep_prob: 1.0})
+    test_accuracy = accuracy.eval(feed_dict={x:batchtest[0], y_:batchtest[1], keep_prob: 1.0})
     print("step %d, test accuracy %g"%(i, test_accuracy))
 
 batch = make_images(1000)
