@@ -5,6 +5,8 @@ from toydatabasic import _choose_rectangle
 from toydatabasic import _choose_horizontal
 from toydatabasic import _choose_vertical
 from toydatabasic import _image
+import matplotlib as mpl
+mpl.use('agg')
 
 def add_eight_shapes_to(array, locs, npoints = 1):
     """ this function adds one of eight different shape types to an array each time it is called:
@@ -136,7 +138,7 @@ def generate_noise(array, npoints):
 class image_gen_counter:
     _counter_ = 0
 
-def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = True, noise = 30):
+def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = True, noise = 0):
     """
     This function makes a set of variable classification images. The bad_label functionality randomizes the labels assigned
     to each image, to test training, while the debug function prints the images generated. The multiplicities corresponds
