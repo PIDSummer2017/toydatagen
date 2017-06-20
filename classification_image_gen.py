@@ -119,10 +119,18 @@ def randomize_labels_four():
     labels[z] = 1
     return labels
 
+def generate_noise(array, npoints):
+    for x in xrange(npoints):
+        row=int(random.uniform(0,array.shape[0]))
+        col=int(random.uniform(0,array.shape[1]))
+        array[row, col] = random.normal(0,256)
+
+
+
 class image_gen_counter:
     _counter_ = 0
 
-def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = False):
+def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = False, noise = 30):
     """
     This function makes a set of variable classification images. The bad_label functionality randomizes the labels assigned
     to each image, to test training, while the debug function prints the images generated. The multiplicities corresponds
@@ -144,6 +152,8 @@ def make_classification_images(num_images=100,debug=0,bad_label = False, multipl
 
         if multiplicities:
             add_eight_shapes_to(mat, locations)
+
+        generate_noise(mat, noise)
 
         if debug>1:
             image(mat)
