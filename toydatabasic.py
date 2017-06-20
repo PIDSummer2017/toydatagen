@@ -2,7 +2,7 @@ import matplotlib as mpl
 mpl.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
-import random
+from numpy import random
 from scipy import optimize
 
 def _image(array):
@@ -44,8 +44,8 @@ def _choose_horizontal(x, y, array):
     z = random.uniform(0,1)
     if 0 < z <= 1:
          if y+5 <= len(array[1]):
-         points = [(x, y), (x, y+5)]
-              array[x, y:y+5] = 180 + array[x, y:y+5]
+             points = [(x, y), (x, y+5)]
+             array[x, y:y+5] = 180 + array[x, y:y+5]
               #print 1
 
 def _choose_vertical(x, y, array):

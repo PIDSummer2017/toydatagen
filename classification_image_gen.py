@@ -1,4 +1,10 @@
-from toydatagen.toydata_base import *
+import toydatabasic
+from toydatabasic import *
+from toydatabasic import _choose_triangle
+from toydatabasic import _choose_rectangle
+from toydatabasic import _choose_horizontal
+from toydatabasic import _choose_vertical
+from toydatabasic import _image
 
 def add_eight_shapes_to(array, locs, npoints = 1):
     """ this function adds one of eight different shape types to an array each time it is called:
@@ -29,31 +35,31 @@ def add_eight_shapes_to(array, locs, npoints = 1):
         for i in range(len(rectxs)):
             x = rectxs[i]
             y = rectys[i]
-            choose_rectangle(x,y,array)
+            _choose_rectangle(x,y,array)
             if z < 1:
-                choose_rectangle(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
+                _choose_rectangle(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
                 locs.append([0,1,0,0,0,0,0,0])
             else: locs.append([1,0,0,0,0,0,0,0])
         for i in range(len(triys)):
             x = trixs[i]
             y = triys[i]
-            choose_triangle(x,y,array)
+            _choose_triangle(x,y,array)
             if z < 1:
-                choose_triangle(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
+                _choose_triangle(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
                 locs.append([0,0,0,1,0,0,0,0])
             else: locs.append([0,0,1,0,0,0,0,0])
         for i in range(len(horxs)):
             x = horxs[i]
             y = horys[i]
-            choose_horizontal(x,y,array)
+            _choose_horizontal(x,y,array)
             if z <1:
-                choose_horizontal(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
+                _choose_horizontal(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
                 locs.append([0,0,0,0,0,1,0,0])
             else: locs.append([0,0,0,0,1,0,0,0])
         for i in range(len(vertys)):
-            choose_vertical(vertxs[i], vertys[i], array)
+            _choose_vertical(vertxs[i], vertys[i], array)
             if z <1:
-                choose_vertical(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
+                _choose_vertical(int(random.uniform(5, array.shape[0]-5)), int(random.uniform(5, array.shape[1]-5)), array)
                 locs.append([0,0,0,0,0,0,0,1])
             else: locs.append([0,0,0,0,0,0,1,0])
 
@@ -84,20 +90,20 @@ def add_four_shapes_to(array, locs, npoints = 1):
         for i in range(len(rectxs)):
             x = rectxs[i]
             y = rectys[i]
-            choose_rectangle(x,y,array)
+            _choose_rectangle(x,y,array)
             locs.append([1,0,0,0])
         for i in range(len(triys)):
             x = trixs[i]
             y = triys[i]
-            choose_triangle(x,y,array)
+            _choose_triangle(x,y,array)
             locs.append([0,1,0,0])
         for i in range(len(horxs)):
             x = horxs[i]
             y = horys[i]
-            choose_horizontal(x,y,array)
+            _choose_horizontal(x,y,array)
             locs.append([0,0,1,0])
         for i in range(len(vertys)):
-            choose_vertical(vertxs[i], vertys[i], array)
+            _choose_vertical(vertxs[i], vertys[i], array)
             locs.append([0,0,0,1])
 
 def randomize_labels_eight():
@@ -123,14 +129,14 @@ def generate_noise(array, npoints):
     for x in xrange(npoints):
         row=int(random.uniform(0,array.shape[0]))
         col=int(random.uniform(0,array.shape[1]))
-        array[row, col] = random.normal(0,256)
+        array[row, col] = random.normal(128, 128)
 
 
 
 class image_gen_counter:
     _counter_ = 0
 
-def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = False, noise = 30):
+def make_classification_images(num_images=100,debug=0,bad_label = False, multiplicities = True, noise = 30):
     """
     This function makes a set of variable classification images. The bad_label functionality randomizes the labels assigned
     to each image, to test training, while the debug function prints the images generated. The multiplicities corresponds
@@ -156,7 +162,7 @@ def make_classification_images(num_images=100,debug=0,bad_label = False, multipl
         generate_noise(mat, noise)
 
         if debug>1:
-            image(mat)
+            _image(mat)
             plt.savefig('image_%04d.png' % image_gen_counter._counter_)
 
         mat = np.reshape(mat, (784))

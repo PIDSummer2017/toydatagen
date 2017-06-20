@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-import classification_images
-from classification_images import make_classification_images as make_images
+import classification_image_gen
+from classification_image_gen import make_classification_images as make_images
 
 x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784,8]))
