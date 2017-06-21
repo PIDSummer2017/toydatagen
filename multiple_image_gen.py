@@ -1,11 +1,16 @@
 from toydatabasic import*
+from toydatabasic import _choose_rectangle
+from toydatabasic import _choose_triangle
+from toydatabasic import _choose_vertical
+from toydatabasic import _choose_horizontal
+from toydatabasic import _image
 from classification_image_gen import generate_noise
 #labeling still needs to be fixed!!!!!!!!!
 
 def _choose_random_pixel(array):
-    row = np.random.randint(5, len(array)-5)
-    col = np.random.randint(5, len(array)-5)
-    return array[row][col]
+    row = np.random.randint(5, array.shape[0]-5)
+    col = np.random.randint(5, array.shape[1]-5)
+    return row, col
 
 def _randomize_shape(chance):
     """function to return True depending on 1/chance input. Takes an integer
@@ -32,7 +37,7 @@ def _add_multiple_shapes_to(array, locs, types = [True, True, True, True], nums 
     if types[0]:
         for i in range(nums[0]):
             x, y = _choose_random_pixel(array)
-            if randomize_shape(probs):
+            if _randomize_shape(probs):
                 _choose_rectangle(x, y, array)
                 locs.append([1,0,0,0])
     if types[1]:
@@ -44,7 +49,7 @@ def _add_multiple_shapes_to(array, locs, types = [True, True, True, True], nums 
     if types[2]:
         for i in range(nums[2]):
             x, y = _choose_random_pixel(array)
-            if randomize_shape(probs):
+            if _randomize_shape(probs):
                 _choose_horizontal(x, y, array)
                 locs.append([0,0,1,0])
     if types[3]:
@@ -60,7 +65,7 @@ class image_gen_counter:
 
 #@ future me: make this more elegant, less inputs, etc. use classes? work on this tomorrow
 
-def generate_training_images(num_images=100,debug=0,bad_label = False, noise = 0, types = [True, True, True, True], nums = [2, 2, 2, 2], probs = 4):
+def generate_training_images(num_images=100,debug=2,bad_label = False, noise = 0, types = [True, True, True, True], nums = [2, 2, 2, 2], probs = 4):
     locations = []
     bad_locations = []
     images = []
@@ -72,7 +77,7 @@ def generate_training_images(num_images=100,debug=0,bad_label = False, noise = 0
 
         mat = np.zeros([28,28]).astype(np.float32)
 
-        add_multiple_shapes_to(mat)
+        _add_multiple_shapes_to(mat, locations)
 
         generate_noise(mat, noise)
 
@@ -93,3 +98,5 @@ def generate_training_images(num_images=100,debug=0,bad_label = False, noise = 0
         return images, bad_locations
     #print locations
     return images, locations
+
+generate_training_images()

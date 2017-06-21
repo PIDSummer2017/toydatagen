@@ -112,10 +112,12 @@ for q in range(len(predictions)):
 
 print labels[:10], predictions[:10]
 
+print labelvals[:10]
+
 fout=open('commonerrors.csv','w')
 fout.write('event, label, prediction')
 for x in xrange(len(labels)):
-    fout.write('%d, %d\n' % (x, labelvals[x], predictionvals[x]))
+    fout.write('%d, %d' % (x, labelvals[x]), predictionvals[x])
 fout.close()
 
 
